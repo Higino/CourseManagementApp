@@ -59,7 +59,7 @@ class ParseCSVFileDashboard extends Component {
             title: e.data['Title']
           }
         })
-        this.setState({uploadDisabeld: true})
+        //this.setState({uploadDisabeld: true})
       } else if( data[0].data['Course Complete']) {
         console.log('Its an pre-req file')
         this.setState({fileType : 'PREREQ'})

@@ -7,6 +7,7 @@ const Promise = require('bluebird')
 const AppDAO = require('./model/AppDao')
 const EnrolmentRepository = require('./model/EnrollmentRepository')
 const PrereqsRepository = require('./model/PrereqsRepository')
+const CourseRepository = require('./model/CourseRepository')
 
 const express = require("express");
 const app = express();
@@ -21,13 +22,28 @@ const PORT = process.env.PORT || 3001;
 const dao = new AppDAO('./database.sqlite3')
 const enrollRepo = new EnrolmentRepository(dao)
 const prereqRepo = new PrereqsRepository(dao)
+const coursesRepo = new CourseRepository(dao)
 
 async function init () {
   await enrollRepo.createTable()
   await prereqRepo.createTable()
+  await coursesRepo.createTable()
+  //await coursesRepo.createSampleCourses()
 }
 
 init()
+
+app.get('/api/courses', async function (req, res) {
+  console.log('Getting all courses')
+  let courses = await coursesRepo.getAll() 
+  res.send(courses)
+})
+
+app.get('/api/courses/:id', async function (req, res) {
+  console.log('Getting course ' + req.params.id)
+  let course = await coursesRepo.findById(req.params.id)
+  res.send(course)
+})
 
 app.post('/api/prereqs', function(req, res) {
   console.log(req.body)

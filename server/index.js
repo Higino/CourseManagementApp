@@ -34,8 +34,8 @@ async function init () {
 init()
 
 app.get('/api/courses', async function (req, res) {
-  console.log('Getting all courses')
   let courses = await coursesRepo.getAll() 
+  console.log(courses)
   res.send(courses)
 })
 

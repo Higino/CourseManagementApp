@@ -5,7 +5,7 @@ class CourseRepository {
   
     createTable() {
       const sql = `
-      CREATE TABLE IF NOT EXISTS courses (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)`
+      CREATE TABLE IF NOT EXISTS courses (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, status INTEGER)`
       return this.dao.run(sql)
     }
 
@@ -18,7 +18,7 @@ class CourseRepository {
 
     create(name) {
         return this.dao.run(
-          'INSERT INTO courses (name) VALUES (?)',
+          'INSERT INTO courses (name) VALUES (?, 1)',
           [name])
     }
 
@@ -43,6 +43,12 @@ class CourseRepository {
     getAll() {
         return this.dao.all(`SELECT * FROM courses`)
     }
+
+    closeCourse(id) {
+      return this.dao.run(
+        'UPDATE courses SET status = 0 WHERE id = ?',
+        [id])
+}
       
 }
   

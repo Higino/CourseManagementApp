@@ -4,6 +4,7 @@ import AppNav from './AppNav';
 import CourseListing from './components/CourseListing'
 import Home from './Home';
 import ImportData from './components/ImportData';
+import CourseManagement from './components/CourseManagement';
 
 class App extends Component {
     state = {  }
@@ -14,7 +15,9 @@ class App extends Component {
             <Router>
                 <Switch>
                      <Route path='/' exact={true} component={Home}/>
+                     <Route path='/courselisting/:id' exact={true} component={CourseListing}/>
                      <Route path='/courselisting' exact={true} component={CourseListing}/>                     
+                     <Route path='/courses' exact={true} component={CourseManagement}/>                     
                      <Route path='/import' exact={true} component={ImportData}/>
                 </Switch>
              </Router>

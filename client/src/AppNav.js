@@ -28,7 +28,7 @@ class AppNav extends Component {
                 Courses Management
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem href='/'>
+                <DropdownItem href='/courses'>
                   Add/Close Courses  
                 </DropdownItem>
                 <DropdownItem href="/courselisting">

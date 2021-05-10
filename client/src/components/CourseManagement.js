@@ -1,20 +1,57 @@
 import React, { Component } from 'react';
-import { Table, Col, Container, Row } from 'reactstrap';
+import { Label, Table, Col, Container, Row, Button, Input } from 'reactstrap';
 
 
 class CourseManagement extends Component {
 
     state = {  
         isLoading : true,
-        courses: [{name: "THIS IS A TEST "}]
+        courses: [{}],
+        newCourseName: 'default'
+    }
+
+    invokeApi = async (url, method, bodyData) => {
+        if( !bodyData ) bodyData = {}
+
+        let response = await fetch(url, {
+            method: method,
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bodyData) // This is your file object
+          }).then(
+            response => { 
+              if( response.status !== 200 ) {
+                throw new Error(response.statusText)
+              }
+              return response.json()
+            } // if the response is a JSON object
+          ).catch(
+            error => {
+              console.log(error); return [] } // Handle the error response object
+          );
+    
+          return response;
+
     }
  
     async componentDidMount(){
         const response= await fetch('/api/courses');
         const courses = await response.json();
-
-        //console.log(courses)
         this.setState({courses: courses, isLoading: false});
+    }
+
+    updateCourseName = (e) => {
+        this.setState({ newCourseName: e.target.value });
+    }
+
+    addCourse = (event) => {
+        this.invokeApi('/api/courses', 'POST', {name: this.state.newCourseName})
+    }
+
+    closeCourse = async (event) => {
+        this.invokeApi('/api/courses', 'DELETE', {id: event.target.id})        
     }
 
     render() { 
@@ -26,22 +63,31 @@ class CourseManagement extends Component {
         return ( 
             
                 <div>
-                    <Container className="themed-container">
-                    <h2>List of existing courses</h2>     
+                    <Container>
+                    <Row>
+                        <Col>
+                            <Table><thead></thead><tbody><tr><td width='50%'> <Label>Course Name:</Label>
+                                                        <Input value={this.state.newCourseName} name='coursename' onChange={this.updateCourseName}></Input></td><td></td></tr>
+                                   <tr><td><Button href='/courses' onClick={this.addCourse}>Add course</Button></td><td></td></tr></tbody>
+                            </Table>                                
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col><h2>List of existing courses</h2></Col>
+                    </Row>
                     <Row>
                     <Col>
                     <Table hover>
-                        <thead><tr><th>Id</th><th>Course Name</th><th>Actions</th></tr></thead>
+                        <thead><tr><th>Id</th><th>Course Name</th><th Style='text-align:center'>Actions</th></tr></thead>
                         <tbody>
                         {
                         courses.map( (e, i) => {
                             return  <tr key={e.id}>
                                         <td>{e.id}</td>
-                                        <td  width='40%'>{e.name}</td>
-                                        <td><Container><Row>
-                                            <Col>Delete Course</Col>
-                                            <Col>Show attendees</Col>
-                                            <Col>Reminders/Confirmations</Col>
+                                        <td>{e.name}</td>
+                                        <td Style='text-align:center'><Container><Row>
+                                            <Col><Button href='/courses' id={e.id} onClick={this.closeCourse}>Close Course</Button></Col>
+                                            <Col><Button href={'/courselisting/'+e.id}>Reminders/Confirmations</Button></Col>
                                         </Row></Container></td>
                                     </tr>
                         })

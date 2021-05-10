@@ -5,25 +5,26 @@ class EnrollmentRepository {
   
     createTable() {
       const sql = `
-      CREATE TABLE IF NOT EXISTS enrollments (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, title TEXT)`
+      CREATE TABLE IF NOT EXISTS enrollments (id INTEGER PRIMARY KEY AUTOINCREMENT, courseid INTEGER, name TEXT, email TEXT, title TEXT)`
       return this.dao.run(sql)
     }
 
-    create(name, email, title) {
+    create(courseid, name, email, title) {
         return this.dao.run(
-          'INSERT INTO enrollments (name, email, title) VALUES (?, ?, ?)',
-          [name, email, title])
+          'INSERT INTO enrollments ( courseid, name, email, title) VALUES (?, ?, ?, ?)',
+          [courseid, name, email, title])
     }
 
-    deleteAll() {
+    deleteAll(courseid) {
         return this.dao.run(
-          `DELETE FROM enrollments`,
-          []
+          `DELETE FROM enrollments WHERE courseid = ?`,
+          [courseid]
         )
     }
 
-    getAll() {
-        return this.dao.all(`SELECT * FROM enrollments`)
+    getAll(courseid) {
+        return this.dao.all(`SELECT * FROM enrollments WHERE courseid = ?`, 
+        [courseid])
     }
       
 }

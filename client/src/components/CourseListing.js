@@ -19,20 +19,23 @@ class CourseListing extends Component {
             const response = await (await fetch('/api/courses/'+this.props.match.params.id)).json();
             const course = response
             console.log(course)
-            this.setState( {Courses: course})
-            if( course.length !== 0 )
+            if( course.length !== 0 ) {
+                this.setState( {Courses: course, selectedCourse: course[0]})
                 this.loadListings()
+            }
         }
     }
 
     loadListings = async () => {
-        const response= await fetch('/api/listings/complete');
-        const completeList = await response.json();
+        if( this.state.selectedCourse.id ) {
+            const response= await fetch('/api/listings/complete/'+this.state.selectedCourse.id);
+            const completeList = await response.json();
 
-        const response2 = await fetch('/api/listings/incomplete');
-        const incompleteList = await response2.json();
+            const response2 = await fetch('/api/listings/incomplete/'+this.state.selectedCourse.id);
+            const incompleteList = await response2.json();
 
-        this.setState({CompleteList : completeList , IncompleteList: incompleteList, isLoading: false});
+            this.setState({CompleteList : completeList , IncompleteList: incompleteList, isLoading: false});
+        }
     }
 
     selectCourse = (course) => {

@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { CSVReader } from 'react-papaparse';
-import { UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledAlert, Table, CardTitle, Card, CardHeader, 
-  CardImg, CardBody, Label, FormText, Button, Row, Col, Container, CardFooter, CardText } from 'reactstrap';
+import {UncontrolledAlert, Table, Card, CardHeader, 
+  CardImg, CardBody, FormText, Button, Row, Col, Container, CardFooter, CardText } from 'reactstrap';
+import CourseSelector from './CourseSelector';
 
 
 class ParseCSVFileDashboard extends Component {
 
     state = {  
         // Initially, no file is selected 
-        selectedFile: null,
         parsedData: [],
         fileType: '',
         uploadStatus: {
           status:'', 
           message: ''},
         dropdownOpen: false,
-        uploadDisabeld: true
+        selectedCourse: {}
     }
 
     handleOnDrop = (data) => {
-      this.setState({uploadDisabeld: false, parsedData: [], fileType: '', uploadStatus: {
+      this.setState({selectedCourse: {}, parsedData: [], fileType: '', uploadStatus: {
         status:'', 
         message: ''}})
 
@@ -35,7 +35,7 @@ class ParseCSVFileDashboard extends Component {
     };
   
     handleOnRemoveFile = (data) => {
-      this.setState({uploadDisabeld: true, parsedData: [], fileType: '', uploadStatus: {
+      this.setState({selectedCourse: {}, parsedData: [], fileType: '', uploadStatus: {
         status:'', 
         message: ''}})
     };
@@ -86,7 +86,6 @@ class ParseCSVFileDashboard extends Component {
         body: JSON.stringify(data) // This is your file object
       }).then(
         response => { 
-          console.log(response)
           if( response.status !== 200 ) {
             throw new Error(response.statusText)
           }
@@ -115,9 +114,15 @@ class ParseCSVFileDashboard extends Component {
       if( this.state.fileType === 'PREREQ' ) {
         this.uploadData('/api/prereqs', this.state.parsedData)
       } else if( this.state.fileType === 'ENROLL' ) {
-        this.uploadData('/api/enrollments', this.state.parsedData)
+        this.uploadData('/api/courses/enrollment/'+this.state.selectedCourse.id, this.state.parsedData)
       }
     }
+
+    selectCourse = (course) => {
+      console.log(course)
+      this.setState({selectedCourse : course})
+    }
+
 
     render() { 
         var uploadStatusAlert = ''
@@ -152,21 +157,7 @@ class ParseCSVFileDashboard extends Component {
         var courseChooser = ''
         if( this.state.fileType && this.state.fileType === 'ENROLL') {
           courseChooser =
-            <UncontrolledDropdown size="sm">
-            <DropdownToggle caret>
-              Course?
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem header>Filipa</DropdownItem>
-              <DropdownItem>Course 1</DropdownItem>
-              <DropdownItem>Course 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem header>Isabel</DropdownItem>
-              <DropdownItem>Course 3</DropdownItem>
-              <DropdownItem>Course 4</DropdownItem>
-              <DropdownItem>Course 5</DropdownItem>
-            </DropdownMenu>
-            </UncontrolledDropdown>
+          <CourseSelector onSelection={this.selectCourse}/>
         }
 
         return ( 
@@ -192,7 +183,8 @@ class ParseCSVFileDashboard extends Component {
                         <Container className="themed-container" >
                         <Row>
                         <Col>
-                        <Button size='sm' color="primary" disabled={ this.state.fileType === '' || this.state.uploadDisabeld } onClick={this.upload}>Submit results</Button>
+                        {console.log(this.state.selectedCourse)}
+                        <Button size='sm' color="primary" disabled={ this.state.fileType === '' || (this.state.fileType === 'ENROLL' && !this.state.selectedCourse.id) } onClick={this.upload}>Submit results</Button>
                         </Col>
                         <Col>
                         {courseChooser}

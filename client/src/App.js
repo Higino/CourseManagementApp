@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AppNav from './AppNav';
 import CourseListing from './components/CourseListing'
 import Home from './Home';
-import ImportData from './components/ImportData';
 import CourseManagement from './components/CourseManagement';
+import ParseCSVFileDashboard from './components/ParseCSVFileDashboard'
 
 class App extends Component {
     state = {  }
@@ -18,7 +18,7 @@ class App extends Component {
                      <Route path='/courselisting/:id' exact={true} component={CourseListing}/>
                      <Route path='/courselisting' exact={true} component={CourseListing}/>                     
                      <Route path='/courses' exact={true} component={CourseManagement}/>                     
-                     <Route path='/import' exact={true} component={ImportData}/>
+                     <Route path='/import' exact={true} component={ParseCSVFileDashboard}/>
                 </Switch>
              </Router>
              </>

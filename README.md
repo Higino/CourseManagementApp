@@ -13,11 +13,13 @@ Install npm and node ([with admin rights on windows](https://phoenixnap.com/kb/i
 
 On a terminal window, go to the CourseManagement/server folder and type the following command:
 ```
+?> npm install 
 ?> npm start
 ```
 
 On a new terminal window, go to the CourseManagement/client folder and type the following command:
 ```
+?> npm install
 ?> npm start
 ```
 

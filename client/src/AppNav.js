@@ -35,7 +35,7 @@ class AppNav extends Component {
                   Messages & Reminders
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href='/'>
+                <DropdownItem href='/import'>
                   Enrollments & PreReqs Import
                 </DropdownItem>
               </DropdownMenu>

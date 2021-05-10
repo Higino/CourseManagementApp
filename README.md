@@ -7,6 +7,8 @@ Coursde to manage course enrollments, reminder and welcome messages
 ## Pre requirements
 Install npm and node
 https://phoenixnap.com/kb/install-node-js-npm-on-windows
+or
+https://theshravan.net/blog/how-to-use-node-and-npm-without-installation-or-admin-rights/
 
 On a terminal window, go to the CourseManagement/server folder and type the following command:
 ```

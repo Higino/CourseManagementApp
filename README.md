@@ -4,6 +4,8 @@
 Coursde to manage course enrollments, reminder and welcome messages
 
 # How to install
+Download the App [zip file](https://github.com/Higino/CourseManagementApp/archive/refs/heads/main.zip) and unzip it to CourseManagement folder at your desired local hard drive location
+
 ## Pre requirements
 Install npm and node ([with admin rights on windows](https://phoenixnap.com/kb/install-node-js-npm-on-windows), [without admin rights on windows](https://theshravan.net/blog/how-to-use-node-and-npm-without-installation-or-admin-rights/))
 

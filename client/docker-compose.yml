@@ -3,7 +3,7 @@ version: "3.8"
 services:  
   expensetracker:
     build: .
-    image: expensetracker
-    container_name: expensetracker
+    image: coursetracker
+    container_name: coursetracker
     ports:
       - "3000:3000"

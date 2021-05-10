@@ -4,6 +4,10 @@
 Coursde to manage course enrollments, reminder and welcome messages
 
 # How to install
+## Pre requirements
+Install npm and node
+https://phoenixnap.com/kb/install-node-js-npm-on-windows
+
 On a terminal window, go to the CourseManagement/server folder and type the following command:
 ```
 ?> npm start

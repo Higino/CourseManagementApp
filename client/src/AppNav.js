@@ -18,7 +18,7 @@ class AppNav extends Component {
         return (
           <div>
             <Navbar color="dark" dark expand="md">
-              <NavbarBrand href="/">Import Data</NavbarBrand>
+              <NavbarBrand href="/">Home</NavbarBrand>
                 <Nav className="mr-auto" navbar>
                   <NavItem>
                     <NavLink></NavLink>

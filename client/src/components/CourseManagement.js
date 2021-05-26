@@ -87,6 +87,7 @@ class CourseManagement extends Component {
                                         <td>{e.name}</td>
                                         <td Style='text-align:center'><Container><Row>
                                             <Col><Button href='/courses' id={e.id} onClick={this.closeCourse}>Close Course</Button></Col>
+                                            <Col><Button href={'/import'}>Import Enrollments</Button></Col>
                                             <Col><Button href={'/courselisting/'+e.id}>Reminders/Confirmations</Button></Col>
                                         </Row></Container></td>
                                     </tr>

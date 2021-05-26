@@ -31,12 +31,12 @@ class AppNav extends Component {
                 <DropdownItem href='/courses'>
                   Add/Close Courses  
                 </DropdownItem>
-                <DropdownItem href="/courselisting">
-                  Messages & Reminders
-                </DropdownItem>
-                <DropdownItem divider />
                 <DropdownItem href='/import'>
                   Enrollments & PreReqs Import
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem href="/courselisting">
+                  Messages & Reminders
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

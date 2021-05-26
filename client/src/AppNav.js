@@ -18,7 +18,7 @@ class AppNav extends Component {
         return (
           <div>
             <Navbar color="dark" dark expand="md">
-              <NavbarBrand href="/">Import Data</NavbarBrand>
+              <NavbarBrand href="/">Home</NavbarBrand>
                 <Nav className="mr-auto" navbar>
                   <NavItem>
                     <NavLink></NavLink>
@@ -31,12 +31,12 @@ class AppNav extends Component {
                 <DropdownItem href='/courses'>
                   Add/Close Courses  
                 </DropdownItem>
-                <DropdownItem href="/courselisting">
-                  Messages & Reminders
-                </DropdownItem>
-                <DropdownItem divider />
                 <DropdownItem href='/import'>
                   Enrollments & PreReqs Import
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem href="/courselisting">
+                  Messages & Reminders
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

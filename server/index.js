@@ -10,12 +10,8 @@ const app = express();
 
 
 app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true}));
 
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 
 const PORT = process.env.PORT || 3001;
 
@@ -86,16 +82,37 @@ app.post('/api/courses/enrollment/:courseid', function(req, res) {
   res.send({status: 'success'})
 })
 
+app.post('/api/courses/enrollment/confirmation/:courseid', function(req, res) {
+  let contacts = req.body
+  if( !req.body || !contacts.length) {
+    console.log('No contacts found in body')
+    console.log(req.body)
+    res.status(400).send('You must send a valid list of contacts to confirm enrollment');
+  } else {
+    console.log(req.body)
+    contacts.map( e => {
+      e.email?  enrollRepo.confirmEnrollment(req.params.courseid, e.email) : ""
+      return e
+    })
+    res.send({status: 'Success'})
+  }
+})
+
 // =================
 // === API/PREREQS
 // =================
 app.post('/api/prereqs', function(req, res) {
-  console.log(req.body)
-  prereqRepo.deleteAll();
-  req.body.map( e=> {
-    prereqRepo.create(e.email, e.course, e.courseCompleteDate)
-  })
-  res.send({status: 'success'})
+  if( !req.body ) {
+    console.log('No prereqs found in body')
+    console.log(req.body)
+    res.status(400).send('You must send some prereqs in the body of the request');
+  } else {
+    prereqRepo.deleteAll();
+    req.body.map( e=> {
+      prereqRepo.create(e.email, e.course, e.courseCompleteDate)
+    })
+    res.send({status: 'success'})
+  }
 })
 
 // =================
@@ -104,7 +121,7 @@ app.post('/api/prereqs', function(req, res) {
 app.get("/api/listings/complete/:courseid", async (req, res) => {
   let pr = await prereqRepo.getAll() 
   console.log(pr)
-  let e = await enrollRepo.getAll(req.params.courseid) 
+  let e = await enrollRepo.getAllUnconfirmed(req.params.courseid) 
   console.log(e)
 
   let temp = e.map( ee => { 
@@ -118,6 +135,10 @@ app.get("/api/listings/complete/:courseid", async (req, res) => {
   res.send( temp.filter( e => { return e.count >= 3 }) )
 });
 
+app.get("/api/listings/confirmedenroll/:courseid", async (req, res) => {
+  let e = await enrollRepo.getAllConfirmed(req.params.courseid) 
+  res.send(  e  )
+});
 
 app.get("/api/listings/incomplete/:courseid", async (req, res) => {
   let pr = await prereqRepo.getAll() 

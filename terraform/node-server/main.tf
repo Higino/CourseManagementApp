@@ -36,7 +36,7 @@ sudo npm install
 sudo npm start &
 cd /home/ubuntu/CourseManagementApp/client
 sudo npm install
-sudo export PORT=80 & npm start &
+sudo npm start &
 ' >> /home/ubuntu/init.sh
 chmod +x /home/ubuntu/init.sh
 sudo /bin/su ubuntu /home/ubuntu/init.sh

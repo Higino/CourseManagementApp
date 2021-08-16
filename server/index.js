@@ -5,6 +5,8 @@ const EnrolmentRepository = require('./model/EnrollmentRepository')
 const PrereqsRepository = require('./model/PrereqsRepository')
 const CourseRepository = require('./model/CourseRepository')
 
+const PORT = process.env.SERVER_PORT || 3001;
+
 const express = require("express");
 const app = express();
 
@@ -13,7 +15,6 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 
-const PORT = process.env.PORT || 3001;
 
 
 

@@ -29,6 +29,14 @@ sudo apt-get update && sudo apt-get install yarn
 sudo yarn global add pm2' >> /home/ubuntu/init.sh
 chmod +x /home/ubuntu/init.sh
 sudo /bin/su ubuntu /home/ubuntu/init.sh
+
+cd /home/ubuntu
+git clone https://github.com/Higino/CourseManagementApp.git
+cd /home/ubuntu/CourseManagementApp/server && npm install
+cd /home/ubuntu/CourseManagementApp/client && npm install
+cd /home/ubuntu/CourseManagementApp/server && npm start &
+cd /home/ubuntu/CourseManagementApp/client && npm start &
+
 EOF
 
 

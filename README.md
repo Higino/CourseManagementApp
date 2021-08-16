@@ -38,7 +38,7 @@ You shouls see something like this if everything goes well: api_gateway_public_i
 
 Wait about 10 minutes and in your browser type the api_gateway_public_ip in a new browser window and you should see the home page of CourseApp
 
-## Running the software
+## Running the software locally
 
 On a terminal window, go to the CourseManagement/server folder and type the following command:
 ```

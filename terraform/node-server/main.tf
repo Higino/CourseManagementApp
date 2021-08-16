@@ -18,7 +18,7 @@ cd server-init
 curl -sL https://deb.nodesource.com/setup_14.x | sudo bash
 
 ## Run `sudo apt-get install -y nodejs` to install Node.js 14.x and npm
-sudo apt-get install -y nodejs
+sudo apt-get install -y nodejs docker docker.io
 ## You may also need development tools to build native addons:
 sudo apt-get install -y gcc g++ make
 ## To install the Yarn package manager, run:
@@ -32,8 +32,8 @@ sudo yarn global add pm2
 cd /home/ubuntu
 sudo git clone https://github.com/Higino/CourseManagementApp.git
 cd /home/ubuntu/CourseManagementApp/server
-sudo npm install
-sudo npm start &
+sudo docker build -t courseapp-server
+sudo docker run --rm -d  -p 3001:3001/tcp courseapp-server:latest
 cd /home/ubuntu/CourseManagementApp/client
 sudo npm install
 sudo npm start &

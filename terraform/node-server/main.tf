@@ -32,7 +32,7 @@ sudo yarn global add pm2
 cd /home/ubuntu
 sudo git clone https://github.com/Higino/CourseManagementApp.git
 cd /home/ubuntu/CourseManagementApp/server
-sudo docker build -t courseapp-server
+sudo docker build -t courseapp-server .
 sudo docker run --rm -d  -p 3001:3001/tcp courseapp-server:latest
 cd /home/ubuntu/CourseManagementApp/client
 sudo npm install

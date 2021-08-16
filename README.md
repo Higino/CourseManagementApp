@@ -27,8 +27,8 @@ AWS_SECRET_ACCESS_KEY="<your amazon secret>"
 aws_region="eu-west-2" 
 ```
 3. Create a public and private key to use in the ec2 instance server. Follow this link to know how (https://phoenixnap.com/kb/generate-ssh-key-windows-10 or https://docs.oracle.com/cd/E19683-01/816-4883/6mb2joaoa/index.html )
-    3.1. Make sure you name the .key and .pem file as courseapp-server-accesskey.key and courseapp-server-accesskey.key 
-    3.2  Save them in CourseManagementApp/terraform and store them in a safe place as you can only access server with these files
+    - 3.1. Make sure you name the .key and .pem file as courseapp-server-accesskey.key and courseapp-server-accesskey.key 
+    - 3.2  Save them in CourseManagementApp/terraform and store them in a safe place as you can only access server with these files
 4. Run 
 ```
 c:\courseapp\terraform init -force-copy

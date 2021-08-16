@@ -9,6 +9,35 @@ Download the App [zip file](https://github.com/Higino/CourseManagementApp/archiv
 ## Pre requirements
 Install npm and node ([with admin rights on windows](https://phoenixnap.com/kb/install-node-js-npm-on-windows), [without admin rights on windows](https://theshravan.net/blog/how-to-use-node-and-npm-without-installation-or-admin-rights/))
 
+# How to instal in AWS
+## Dependencies
+1. Please create an S3 bucket in eu-west-2 region named "terraform-course-app"
+2. Download the app zip file https://github.com/Higino/CourseManagementApp/archive/refs/heads/main.zip
+3. Unzip the app to your prefered folder (example: c:\courseapp)
+4. Download terraform zip file to your local machine https://www.terraform.io/downloads.html
+5. Unzip the file downloaded from https://www.terraform.io/downloads.html to your prefered folder (example c:\courseapp). You should have terraform executable in courseapp directory
+
+## Create and install courseapp in AWS
+After running the steps in the previous section do the following:
+1. Go to the folder CourseManagementApp/terraform
+2. Create a file called terraform.tfvars and save it with the following contents: 
+```
+AWS_ACCESS_KEY="<your amazon access key>"
+AWS_SECRET_ACCESS_KEY="<your amazon secret>"
+aws_region="eu-west-2" 
+```
+3. Create a public and private key to use in the ec2 instance server. Follow this link to know how (https://phoenixnap.com/kb/generate-ssh-key-windows-10 or https://docs.oracle.com/cd/E19683-01/816-4883/6mb2joaoa/index.html )
+    3.1. Make sure you name the .key and .pem file as courseapp-server-accesskey.key and courseapp-server-accesskey.key 
+    3.2  Save them in CourseManagementApp/terraform and store them in a safe place as you can only access server with these files
+4. Run 
+```
+c:\courseapp\terraform init -force-copy
+c:\courseapp\terraform init apply -auto-approve
+```
+You shouls see something like this if everything goes well: api_gateway_public_ip "<ip_address>" which is the IPAdress in which the application will be accessible
+
+Wait about 10 minutes and in your browser type the api_gateway_public_ip in a new browser window and you should see the home page of CourseApp
+
 ## Running the software
 
 On a terminal window, go to the CourseManagement/server folder and type the following command:

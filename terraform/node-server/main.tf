@@ -26,17 +26,20 @@ curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /us
 echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update && sudo apt-get install yarn
 
-sudo yarn global add pm2' >> /home/ubuntu/init.sh
-chmod +x /home/ubuntu/init.sh
-sudo /bin/su ubuntu /home/ubuntu/init.sh
+sudo yarn global add pm2 
+
 
 cd /home/ubuntu
-git clone https://github.com/Higino/CourseManagementApp.git
-cd /home/ubuntu/CourseManagementApp/server && npm install
-cd /home/ubuntu/CourseManagementApp/client && npm install
-cd /home/ubuntu/CourseManagementApp/server && npm start &
-cd /home/ubuntu/CourseManagementApp/client && npm start &
-
+sudo git clone https://github.com/Higino/CourseManagementApp.git
+cd /home/ubuntu/CourseManagementApp/server
+sudo npm install
+sudo npm start &
+cd /home/ubuntu/CourseManagementApp/client
+sudo npm install
+sudo export PORT=80 & npm start &
+' >> /home/ubuntu/init.sh
+chmod +x /home/ubuntu/init.sh
+sudo /bin/su ubuntu /home/ubuntu/init.sh
 EOF
 
 

@@ -3,7 +3,9 @@ import { CSVReader } from 'react-papaparse';
 import {UncontrolledAlert, Table, Card, CardHeader, 
   CardImg, CardBody, FormText, Button, Row, Col, Container, CardFooter, CardText } from 'reactstrap';
 import CourseSelector from './CourseSelector';
+import SERVER_PATH from '../constants';
 
+const pathUrl = SERVER_PATH;
 
 class ParseCSVFileDashboard extends Component {
 
@@ -77,7 +79,7 @@ class ParseCSVFileDashboard extends Component {
     }
 
     async uploadData(url, data) {
-      let response = await fetch(url, {
+      let response = await fetch(pathUrl + url, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

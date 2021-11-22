@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Label, Table, Col, Container, Row, Button, Input } from 'reactstrap';
+import SERVER_PATH from '../constants';
 
+const pathUrl = SERVER_PATH;
 
 class CourseManagement extends Component {
 
@@ -13,7 +15,7 @@ class CourseManagement extends Component {
     invokeApi = async (url, method, bodyData) => {
         if( !bodyData ) bodyData = {}
 
-        let response = await fetch(url, {
+        let response = await fetch(pathUrl + url, {
             method: method,
             headers: {
               'Accept': 'application/json',
@@ -37,7 +39,7 @@ class CourseManagement extends Component {
     }
  
     async componentDidMount(){
-        const response= await fetch('/api/courses');
+        const response= await fetch(pathUrl + '/api/courses');
         const courses = await response.json();
         this.setState({courses: courses, isLoading: false});
     }

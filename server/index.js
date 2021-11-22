@@ -14,6 +14,13 @@ const app = express();
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 
+// use this comment code if you separate the client from the server to ALLOW CORS
+// app.use(function(req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', 'put the frontend url here');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   next();
+// });
 
 
 
@@ -36,6 +43,11 @@ init()
 // =================
 // === API/COURSES
 // =================
+app.get('', async function (req, res) {
+  console.log("working");
+  res.send("working");
+})
+
 app.get('/api/courses', async function (req, res) {
   let courses = await coursesRepo.getAllOpened() 
   console.log(courses)

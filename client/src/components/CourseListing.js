@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Card, CardHeader, CardText, Col, Container, Row, CardBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import CourseSelector from './CourseSelector'
+import CourseSelector from './CourseSelector';
+import SERVER_PATH from '../constants';
 
+const pathUrl = SERVER_PATH;
 
 class CourseListing extends Component {
 
@@ -17,7 +19,7 @@ class CourseListing extends Component {
  
     async componentDidMount(){
         if( this.props.match.params.id ) {
-            const response = await (await fetch('/api/courses/'+this.props.match.params.id)).json();
+            const response = await (await fetch(pathUrl + '/api/courses/'+this.props.match.params.id)).json();
             const course = response
             console.log(course)
             if( course.length !== 0 ) {
@@ -29,13 +31,13 @@ class CourseListing extends Component {
 
     loadListings = async () => {
         if( this.state.selectedCourse.id ) {
-            const response= await fetch('/api/listings/complete/'+this.state.selectedCourse.id);
+            const response= await fetch(pathUrl + '/api/listings/complete/'+this.state.selectedCourse.id);
             const completeList = await response.json();
 
-            const response2 = await fetch('/api/listings/incomplete/'+this.state.selectedCourse.id);
+            const response2 = await fetch(pathUrl + '/api/listings/incomplete/'+this.state.selectedCourse.id);
             const incompleteList = await response2.json();
 
-            const response3 = await fetch('/api/listings/confirmedenroll/'+this.state.selectedCourse.id);
+            const response3 = await fetch(pathUrl + '/api/listings/confirmedenroll/'+this.state.selectedCourse.id);
             const confirmedList = await response3.json();
 
             this.setState({
@@ -56,7 +58,7 @@ class CourseListing extends Component {
 
     async sendJson(url, data) {
         console.log(data)
-        let response = await fetch(url, {
+        let response = await fetch(pathUrl + url, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',

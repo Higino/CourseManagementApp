@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Label } from 'reactstrap';
+import SERVER_PATH from '../constants';
 
+const pathUrl = SERVER_PATH;
 
 class CourseSelector extends Component {
 
@@ -14,7 +16,7 @@ class CourseSelector extends Component {
         super(props)
     }
     async componentDidMount(){
-        const response= await fetch('/api/courses');
+        const response= await fetch(pathUrl + '/api/courses');
         const courses = await response.json();
 
         this.setState({courses, isLoading: false});

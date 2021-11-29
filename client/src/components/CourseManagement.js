@@ -50,10 +50,12 @@ class CourseManagement extends Component {
 
     addCourse = (event) => {
         this.invokeApi('/api/courses', 'POST', {name: this.state.newCourseName})
+        .then(() => { window.location.reload(false)});
     }
 
     closeCourse = async (event) => {
-        this.invokeApi('/api/courses', 'DELETE', {id: event.target.id})        
+        this.invokeApi('/api/courses', 'DELETE', {id: event.target.id})   
+        .then(() => { window.location.reload(false)});       
     }
 
     render() { 
@@ -70,7 +72,7 @@ class CourseManagement extends Component {
                         <Col>
                             <Table><thead></thead><tbody><tr><td width='50%'> <Label>Course Name:</Label>
                                                         <Input value={this.state.newCourseName} name='coursename' onChange={this.updateCourseName}></Input></td><td></td></tr>
-                                   <tr><td><Button href='/courses' onClick={this.addCourse}>Add course</Button></td><td></td></tr></tbody>
+                                   <tr><td><Button onClick={this.addCourse}>Add course</Button></td><td></td></tr></tbody>
                             </Table>                                
                         </Col>
                     </Row>
@@ -88,7 +90,7 @@ class CourseManagement extends Component {
                                         <td>{e.id}</td>
                                         <td>{e.name}</td>
                                         <td Style='text-align:center'><Container><Row>
-                                            <Col><Button href='/courses' id={e.id} onClick={this.closeCourse}>Close Course</Button></Col>
+                                            <Col><Button id={e.id} onClick={this.closeCourse}>Close Course</Button></Col>
                                             <Col><Button href={'/import'}>Import Enrollments</Button></Col>
                                             <Col><Button href={'/courselisting/'+e.id}>Reminders/Confirmations</Button></Col>
                                         </Row></Container></td>

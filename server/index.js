@@ -13,14 +13,12 @@ const app = express();
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
-
-// use this comment code if you separate the client from the server to ALLOW CORS
-// app.use(function(req, res, next) {
-//   res.setHeader('Access-Control-Allow-Origin', 'put the frontend url here');
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost'); // client path - change url before deploy
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 
 

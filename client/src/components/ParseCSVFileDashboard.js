@@ -62,14 +62,14 @@ class ParseCSVFileDashboard extends Component {
           }
         })
         //this.setState({uploadDisabeld: true})
-      } else if( data[0].data['Course Complete']) {
+      } else if( data[0].data['Completion']) {
         console.log('Its an pre-req file')
         this.setState({fileType : 'PREREQ'})
         parsedData = data.map( e => {
           return {
-            courseCompleteDate: e.data['Course Complete Date'],
-            email: e.data['DTU Contact: Contact Email'],
-            course: e.data['Course Full Name']
+            courseCompleteDate: e.data['Completion time'],
+            email: e.data['User email'],
+            course: e.data['Asset name']
           }
         })
       } else {
